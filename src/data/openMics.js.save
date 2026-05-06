@@ -1,0 +1,7 @@
+export const openMics = [
+  {
+    id: 1,
+    venue: "Friends Bar",
+    address: "208 E 6th St
+
+

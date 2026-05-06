@@ -1,0 +1,138 @@
+import FilterBar from "./components/FilterBar";
+import Header from "./components/Header";
+import OpenMicCard from "./components/OpenMicCard";
+import { useMemo, useState } from "react";
+import { openMics } from "./data/openMics";
+import "./App.css";
+
+const days = ["All", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+const categories = ["All", "Music", "Comedy", "Poetry", "Acting/Improv"];
+
+function App() {
+  const [view, setView] = useState("list");
+  const [selectedDay, setSelectedDay] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [formData, setFormData] = useState({
+    venue: "",
+    address: "",
+    day: "Monday",
+    time: "",
+    contact: "",
+    notes: "",
+  });
+
+  const filteredOpenMics = useMemo(() => {
+    return openMics.filter((mic) => {
+      const matchesDay = selectedDay === "All" || mic.day === selectedDay;
+      const matchesCategory =
+        selectedCategory === "All" || mic.category === selectedCategory;
+
+      return matchesDay && matchesCategory;
+    });
+  }, [selectedDay, selectedCategory]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("Submission captured locally for now. Firebase comes later.");
+    setFormData({
+      venue: "",
+      address: "",
+      day: "Monday",
+      time: "",
+      contact: "",
+      notes: "",
+    });
+  };
+
+  return (
+    <div className="app-shell">
+      <Header />
+
+      <FilterBar
+        view={view}
+        setView={setView}
+        selectedDay={selectedDay}
+        setSelectedDay={setSelectedDay}
+        days={days}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+        categories={categories}
+      />
+
+      {view === "map" ? (
+        <section className="card map-card">
+          <h2>Map Placeholder</h2>
+          <p>Centered on Austin, Texas.</p>
+          <div className="map-placeholder">
+            <span>Interactive map goes here later</span>
+          </div>
+        </section>
+      ) : (
+        <section className="list-grid">
+          {filteredOpenMics.map((mic) => (
+            <OpenMicCard key={mic.id} mic={mic} />
+          ))}
+        </section>
+      )}
+
+      <section className="card form-card">
+        <h2>Submit an Open Mic</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            name="venue"
+            placeholder="Venue name"
+            value={formData.venue}
+            onChange={handleChange}
+            required
+          />
+          <input
+            name="address"
+            placeholder="Address"
+            value={formData.address}
+            onChange={handleChange}
+            required
+          />
+          <select name="day" value={formData.day} onChange={handleChange}>
+            {days
+              .filter((d) => d !== "All")
+              .map((day) => (
+                <option key={day} value={day}>
+                  {day}
+                </option>
+              ))}
+          </select>
+          <input
+            name="time"
+            placeholder="Start time"
+            value={formData.time}
+            onChange={handleChange}
+            required
+          />
+          <input
+            name="contact"
+            placeholder="Organizer contact"
+            value={formData.contact}
+            onChange={handleChange}
+          />
+          <textarea
+            name="notes"
+            placeholder="Notes"
+            value={formData.notes}
+            onChange={handleChange}
+            rows="4"
+          />
+          <button type="submit">Submit</button>
+        </form>
+      </section>
+    </div>
+  );
+}
+
+export default App;
+
+          
