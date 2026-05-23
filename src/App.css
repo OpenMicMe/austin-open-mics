@@ -181,3 +181,95 @@ textarea {
 .signup-button:hover {
   opacity: 0.92;
 }
+.form-note {
+  margin-bottom: 16px;
+  opacity: 0.85;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.admin-actions button {
+  flex: 1;
+}
+.admin-link {
+  color: white;
+  text-decoration: underline;
+}
+
+.admin-card {
+  max-width: 960px;
+  margin: 0 auto 40px;
+}
+
+.admin-subtitle {
+  margin-bottom: 24px;
+  opacity: 0.9;
+}
+
+.admin-list {
+  display: grid;
+  gap: 20px;
+}
+
+.admin-item {
+  text-align: left;
+}
+
+.admin-item h3 {
+  margin-bottom: 16px;
+}
+
+.admin-item p {
+  margin: 8px 0;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.approve-button,
+.delete-button {
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.approve-button {
+  background: #7c3aed;
+  color: white;
+}
+
+.delete-button {
+  background: #2a2f45;
+  color: white;
+  border: 1px solid #3d4567;
+}
+.admin-topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.admin-userbox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.admin-email {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 14px;
+}
